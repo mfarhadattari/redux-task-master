@@ -1,18 +1,27 @@
 import { ArrowRightIcon, TrashIcon } from "@heroicons/react/24/outline";
 import { useDispatch } from "react-redux";
-import { removeTask } from "../../redux/features/tasks/taskSlice";
+import {
+  removeTask,
+  updateTaskStatus,
+} from "../../redux/features/tasks/taskSlice";
 
 const TaskCard = ({ task }) => {
   const dispatch = useDispatch();
 
+  const updateStatus =
+    task.status === "pending"
+      ? "progressing"
+      : task.status === "progressing"
+      ? "completed"
+      : "archived";
+
   return (
     <div className="bg-secondary/10 rounded-md p-5">
       <h1
-        className={`text-lg font-semibold mb-3  ${
-          task.priority === "high" ? "text-red-500" : ""
-        } ${task.priority === "medium" ? "text-yellow-500" : ""} ${
-          task.priority === "low" ? "text-green-500" : ""
-        }`}
+        className={`text-lg font-semibold mb-3  
+        ${task.priority === "high" && "text-red-500"} 
+        ${task.priority === "medium" && "text-yellow-500"} 
+        ${task.priority === "low" && "text-green-500"}`}
       >
         {task?.title}
       </h1>
@@ -24,7 +33,12 @@ const TaskCard = ({ task }) => {
           <button onClick={() => dispatch(removeTask(task.id))} title="Delete">
             <TrashIcon className="h-5 w-5 text-red-500" />
           </button>
-          <button title="In progress">
+          <button
+            onClick={() =>
+              dispatch(updateTaskStatus({ id: task.id, status: updateStatus }))
+            }
+            title="Update Status"
+          >
             <ArrowRightIcon className="h-5 w-5 text-primary" />
           </button>
         </div>

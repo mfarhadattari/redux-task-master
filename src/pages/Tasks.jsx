@@ -75,7 +75,7 @@ const Tasks = () => {
               </p>
             </div>
             <div className="space-y-3">
-              {progressingTask.map((task) => (
+              {completedTask.map((task) => (
                 <TaskCard key={task.id} task={task} />
               ))}
             </div>
