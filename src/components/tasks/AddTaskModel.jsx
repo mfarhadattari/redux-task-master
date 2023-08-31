@@ -1,11 +1,16 @@
 import { useForm } from "react-hook-form";
-import Model from "./Model";
+import { useDispatch } from "react-redux";
+import { addTask } from "../../redux/features/tasks/taskSlice";
+import Model from "../ui/Model";
 
 const AddTaskModel = ({ isOpen, setIsOpen }) => {
   const { register, handleSubmit, reset } = useForm();
+  const dispatch = useDispatch();
 
   const onSubmit = (data) => {
-    console.log(data);
+    dispatch(addTask(data));
+    reset();
+    setIsOpen(false);
   };
 
   const onCancel = () => {

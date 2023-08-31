@@ -1,8 +1,8 @@
 import { BellIcon, MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useState } from "react";
+import AddTaskModel from "../components/tasks/AddTaskModel";
 import MyTasks from "../components/tasks/MyTasks";
 import TaskCard from "../components/tasks/TaskCard";
-import AddTaskModel from "../components/ui/AddTaskModel";
 
 const Tasks = () => {
   let [isOpen, setIsOpen] = useState(false);
@@ -61,7 +61,7 @@ const Tasks = () => {
           </div>
           <div className="relative h-[800px] overflow-auto">
             <div className="flex sticky top-0 justify-between bg-[#D3DDF9] p-5 rounded-md mb-3">
-              <h1>Up Next</h1>
+              <h1>Completed</h1>
               <p className="bg-primary text-white w-6 h-6 grid place-content-center rounded-md">
                 0
               </p>
