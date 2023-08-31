@@ -55,7 +55,7 @@ const AddTaskModel = ({ isOpen, setIsOpen }) => {
           <select
             className="w-full  rounded-md"
             required
-            {...register("assignTo")}
+            {...register("assignedTo")}
           >
             <option>Farhad</option>
             <option>Rakib</option>
@@ -69,9 +69,9 @@ const AddTaskModel = ({ isOpen, setIsOpen }) => {
             required
             {...register("priority")}
           >
-            <option>High</option>
-            <option>Medium</option>
-            <option>Low</option>
+            <option value="high">High</option>
+            <option value="medium">Medium</option>
+            <option value="low">Low</option>
           </select>
         </div>
         <div className="mt-3 flex gap-3 justify-end">
