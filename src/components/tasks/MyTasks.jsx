@@ -2,9 +2,13 @@ import {
   CheckIcon,
   DocumentMagnifyingGlassIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { setUserTask } from "../../redux/features/tasks/taskSlice";
+import {
+  setUserTask,
+  updateTaskStatus,
+} from "../../redux/features/tasks/taskSlice";
+import TaskDetailsModel from "./TaskDetailsModel";
 
 const MyTasks = () => {
   const dispatch = useDispatch();
@@ -15,6 +19,13 @@ const MyTasks = () => {
   useEffect(() => {
     dispatch(setUserTask(userName));
   }, [userName, dispatch, tasks]);
+
+  const [isOpen, setIsOpen] = useState(false);
+  const [openTask, setOpenTask] = useState({});
+  const taskDetails = (id) => {
+    setOpenTask(tasks.find((task) => task.id === id));
+    setIsOpen(!isOpen);
+  };
 
   return (
     <div>
@@ -27,16 +38,29 @@ const MyTasks = () => {
           >
             <h1>{task.title}</h1>
             <div className="flex gap-3">
-              <button className="grid place-content-center" title="Details">
+              <button
+                className="grid place-content-center"
+                title="Details"
+                onClick={() => taskDetails(task.id)}
+              >
                 <DocumentMagnifyingGlassIcon className="w-5 h-5 text-primary" />
               </button>
-              <button className="grid place-content-center" title="Done">
+              <button
+                className="grid place-content-center"
+                title="Done"
+                onClick={() =>
+                  dispatch(
+                    updateTaskStatus({ id: task.id, status: "completed" })
+                  )
+                }
+              >
                 <CheckIcon className="w-5 h-5 text-primary" />
               </button>
             </div>
           </div>
         ))}
       </div>
+      <TaskDetailsModel isOpen={isOpen} setIsOpen={setIsOpen} task={openTask} />
     </div>
   );
 };
